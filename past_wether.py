@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import requests
 from itertools import count
 import os
+import datetime
 
 
 def get_html(url):  # 날씨 코드를 받아오기
@@ -76,14 +77,23 @@ def output(year, month):  # 연도와 달을 입력 받아서
 # 평균운량
 # 일강수량
 # print("날짜, 평균기온, 최고기온, 최저기온, 평균운량, 일강수량")
+current_year = datetime.datetime.now().year
+print("서울 과거 날씨 csv 로 출력!!")
 while True:
-    try:
-        year_input = input("Year(연도)를 입력해주세요 1960 ~ 현재(2018)")
-        if 2018 >= int(year_input) > 1960:
+    try:  # 잘못된
+        year_input = input("Year(연도)를 입력해주세요 1960 ~ 현재(%d) 공백일시에는 %d 년이 출력됩니다." % (
+            current_year, (current_year-1)))
+        if year_input == "":
+            year_input = current_year-1
+        if current_year >= int(year_input) > 1960:
             break
     except ValueError:
-        print("숫자를 입력해주세요",end=", ")
+        print("숫자를 입력해주세요", end=", ")
     print("잘못된 값을 입력하였습니다.")
+file_name = input(
+    "경로와 파일명을 입력해주세요 경로가 없으면 현재 파이썬 파일 폴더에 저장 됩니다. 확장자는 .csv는 붙혀주시기 바랍니다. 공백일시에는 output.csv로 저장됩니다. 예시 : C:/Users/mgh33/outtest.csv : ")
+if file_name == "":
+    file_name = "output.csv"
 print("프로그램 실행중입니다.")
 outline = "날짜, 평균기온, 최고기온, 최저기온, 평균운량, 일강수량\n"
 for i in range(0, 12):
@@ -92,7 +102,7 @@ for i in range(0, 12):
     outline += output(year_input, i)
 # print("Test")
 # print(outline)
-f = open('output.csv', 'w')
+f = open(file_name, 'w')
 f.write(str(outline))
 f.close()
 print("완료 되었습니다.")
