@@ -76,13 +76,20 @@ def output(year, month):  # 연도와 달을 입력 받아서
 # 평균운량
 # 일강수량
 # print("날짜, 평균기온, 최고기온, 최저기온, 평균운량, 일강수량")
-# input("")
+while True:
+    try:
+        year_input = input("Year(연도)를 입력해주세요 1960 ~ 현재(2018)")
+        if 2018 >= int(year_input) > 1960:
+            break
+    except ValueError:
+        print("숫자를 입력해주세요",end=", ")
+    print("잘못된 값을 입력하였습니다.")
 print("프로그램 실행중입니다.")
 outline = "날짜, 평균기온, 최고기온, 최저기온, 평균운량, 일강수량\n"
 for i in range(0, 12):
     os.system('cls')
     print(str(i+1)+"월을 실행중입니다.")
-    outline += output(2016, i)
+    outline += output(year_input, i)
 # print("Test")
 # print(outline)
 f = open('output.csv', 'w')
