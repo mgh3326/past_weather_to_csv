@@ -1,11 +1,7 @@
 import urllib.request
 from bs4 import BeautifulSoup
 import requests
-
-import pandas as pd
-import datetime
 from itertools import count
-import xml.etree.ElementTree as ET
 
 
 def get_html(url):  # 날씨 코드를 받아오기
